@@ -19,6 +19,9 @@ exports/*
 *.log
 *.tmp
 ~$*
+# Gambar hasil pratinjau PDF (dibuat saat memeriksa panduan).
+_hal*.png
+_p*.png
 Thumbs.db
 desktop.ini
 
