@@ -195,8 +195,69 @@ def build() -> None:
     ]):
         story.append(p)
 
-    # ── B. Cara alternatif ───────────────────────────────────
-    story.append(Paragraph("B. Cara Alternatif (lewat Terminal)", ST_H1))
+    # ── B2. Memasang di laptop baru ──────────────────────────
+    story.append(Paragraph("B2. Memasang di Laptop Baru", ST_H1))
+    story.append(Paragraph(
+        "Bagian ini dipakai <b>sekali saja</b> saat aplikasi dipasang di "
+        "laptop lain. Kode proyek tersimpan di:", ST_BODY))
+    story.append(Paragraph(
+        "<font face='Courier'>https://github.com/vinzxls/spk-hoaks</font>",
+        ST_NOTE))
+
+    story.append(Paragraph("Langkah 1 &mdash; Pasang prasyarat", ST_H2))
+    for p in bullets([
+        "<b>Git</b> &mdash; unduh dari git-scm.com/download/win, install "
+        "dengan pilihan bawaan.",
+        "<b>Python 3.13</b> &mdash; unduh dari python.org/downloads. Saat "
+        "instalasi <b>centang &ldquo;Add python.exe to PATH&rdquo;</b>.",
+        "<b>Laragon</b> &mdash; untuk MySQL, seperti biasa.",
+    ]):
+        story.append(p)
+
+    story.append(Paragraph("Langkah 2 &mdash; Unduh kode dari GitHub", ST_H2))
+    story.append(Paragraph(
+        "Buka Command Prompt (Win + R, ketik <font face='Courier'>cmd</font>, "
+        "Enter), lalu jalankan:", ST_BODY))
+    story.append(code(
+        'cd C:\\\n'
+        'git clone https://github.com/vinzxls/spk-hoaks.git "Orderan Sela\\spk_hoaks"\n'
+        'cd "Orderan Sela\\spk_hoaks"'))
+    story.append(Paragraph(
+        "Perintah ini membuat folder <font face='Courier'>C:\\Orderan "
+        "Sela\\spk_hoaks</font> berisi seluruh kode. Kalau kode di GitHub "
+        "diperbarui, cukup jalankan <font face='Courier'>git pull</font> di "
+        "folder itu.", ST_BODY))
+
+    story.append(Paragraph("Langkah 3 &mdash; Buat lingkungan Python", ST_H2))
+    story.append(code(
+        'python -m venv .venv\n'
+        '.venv\\Scripts\\pip install -r requirements.txt'))
+    story.append(Paragraph(
+        "Tunggu sampai selesai. Proses ini mengunduh pymysql, reportlab, "
+        "openpyxl, dan pytest.", ST_BODY))
+
+    story.append(Paragraph("Langkah 4 &mdash; Nyalakan MySQL &amp; impor "
+                           "database", ST_H2))
+    for p in bullets([
+        "Buka <b>Laragon</b>, klik <b>Start All</b>, tunggu MySQL hijau.",
+        "Di folder proyek, klik dua kali <b>Impor Database.bat</b>.",
+        "Skrip membuat database <b>spk_hoaks</b>, seluruh tabel, dan mengisi "
+        "data awal (admin, 6 kriteria, 30 subkriteria, matriks perbandingan).",
+        "Tunggu sampai muncul tulisan <b>SELESAI</b>.",
+    ]):
+        story.append(p)
+    story.append(Paragraph(
+        "Catatan: skrip ini <b>menolak berjalan</b> kalau database sudah "
+        "berisi jawaban kuesioner, supaya data asli tidak terhapus.", ST_NOTE))
+
+    story.append(Paragraph("Langkah 5 &mdash; Jalankan aplikasi", ST_H2))
+    story.append(Paragraph(
+        "Klik dua kali <b>Jalankan Aplikasi.bat</b>, lalu login sebagai "
+        "<b>admin</b> / <b>admin123</b>. Langkah 1&ndash;4 tidak perlu "
+        "diulang lagi di kemudian hari.", ST_BODY))
+
+    # ── B3. Cara alternatif ──────────────────────────────────
+    story.append(Paragraph("B3. Cara Alternatif (lewat Terminal)", ST_H1))
     story.append(Paragraph(
         "Jika file <font face='Courier'>.bat</font> tidak bisa dipakai, "
         "jalankan perintah berikut di Command Prompt / PowerShell:", ST_BODY))
@@ -204,6 +265,8 @@ def build() -> None:
         'cd "C:\\Orderan Sela\\spk_hoaks"\n'
         '.venv\\Scripts\\activate\n'
         'python main.py'))
+
+    story.append(PageBreak())
 
     # ── C. Syarat sistem ─────────────────────────────────────
     story.append(Paragraph("C. Syarat Sistem (untuk Referensi)", ST_H1))
@@ -219,8 +282,10 @@ def build() -> None:
             [Paragraph("Database", ST_BODY),
              Paragraph("Nama database: spk_hoaks", ST_BODY)],
             [Paragraph("Library Python", ST_BODY),
-             Paragraph("Sesuai requirements.txt (pymysql, reportlab, pytest)",
-                       ST_BODY)],
+             Paragraph("Sesuai requirements.txt (pymysql, reportlab, "
+                       "openpyxl, pytest)", ST_BODY)],
+            [Paragraph("Sumber kode", ST_BODY),
+             Paragraph("https://github.com/vinzxls/spk-hoaks", ST_BODY)],
         ],
         widths=[4.0 * cm, 12.4 * cm],
     ))
@@ -270,9 +335,12 @@ def build() -> None:
     story.append(Paragraph(
         "3. Pesan &ldquo;python is not recognized&rdquo;", ST_H2))
     story.append(Paragraph(
-        "Python belum terpasang atau belum masuk PATH. Pasang ulang "
-        "Python 3.13 dan centang <b>&ldquo;Add Python to PATH&rdquo;</b> "
-        "saat instalasi.", ST_BODY))
+        "Python belum terpasang atau belum masuk PATH. Cara tercepat: pasang "
+        "ulang Python 3.13, pilih <b>Modify</b>, dan centang <b>&ldquo;Add "
+        "Python to environment variables&rdquo;</b>. Atau pakai perintah "
+        "<font face='Courier'>py</font> sebagai ganti "
+        "<font face='Courier'>python</font>:", ST_BODY))
+    story.append(code("py -m venv .venv"))
 
     story.append(Paragraph(
         "4. Pesan &ldquo;Virtual environment .venv tidak ditemukan&rdquo;",
@@ -286,8 +354,24 @@ def build() -> None:
     story.append(Paragraph(
         "5. Aplikasi berjalan tetapi data kosong", ST_H2))
     story.append(Paragraph(
-        "Impor ulang data awal (aman dijalankan berulang):", ST_BODY))
-    story.append(code("mysql -u root spk_hoaks < db/seed.sql"))
+        "Jalankan <b>Impor Database.bat</b> (MySQL harus menyala). Atau lewat "
+        "terminal:", ST_BODY))
+    story.append(code(
+        "mysql -u root < db\\schema.sql\n"
+        "mysql -u root spk_hoaks < db\\seed.sql"))
+
+    story.append(Paragraph(
+        "6. Database sudah berisi data lama dan ingin mulai dari nol", ST_H2))
+    for p in bullets([
+        "Buka <b>Laragon</b> &rarr; <b>Database</b> (atau HeidiSQL).",
+        "Hapus database <font face='Courier'>spk_hoaks</font>.",
+        "Klik dua kali <b>Impor Database.bat</b> lagi.",
+    ]):
+        story.append(p)
+    story.append(Paragraph(
+        "Catatan: menghapus database ikut menghapus semua akun mahasiswa dan "
+        "jawaban kuesioner. Ekspor dulu rekapnya lewat menu <b>Kuesioner "
+        "&rarr; Ekspor Excel</b> kalau datanya masih dibutuhkan.", ST_NOTE))
 
     # ── E. Ringkasan ─────────────────────────────────────────
     story.append(Paragraph("E. Ringkasan Cepat", ST_H1))

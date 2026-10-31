@@ -51,6 +51,84 @@ python main.py
 
 ---
 
+## B2. Memasang di Laptop Baru (Menarik dari GitHub)
+
+Bagian ini dipakai **sekali saja** saat aplikasi dipasang di laptop lain.
+Kode proyek tersimpan di: **https://github.com/vinzxls/spk-hoaks**
+
+### Langkah 1 — Pasang prasyarat
+
+1. **Git** — unduh dari https://git-scm.com/download/win, install dengan
+   pilihan bawaan (semua *Next*).
+2. **Python 3.13** — unduh dari https://www.python.org/downloads/
+   Saat instalasi, **centang "Add python.exe to PATH"**.
+3. **Laragon** — seperti biasa, untuk MySQL.
+
+Pastikan ketiganya sudah terpasang sebelum lanjut.
+
+### Langkah 2 — Unduh kode dari GitHub
+
+Buka **Command Prompt** (`Win + R`, ketik `cmd`, Enter), lalu jalankan:
+
+```cmd
+cd C:\
+git clone https://github.com/vinzxls/spk-hoaks.git "Orderan Sela\spk_hoaks"
+cd "Orderan Sela\spk_hoaks"
+```
+
+Perintah ini membuat folder `C:\Orderan Sela\spk_hoaks` berisi seluruh kode.
+Kalau repo GitHub-nya nanti diperbarui, cukup jalankan `git pull` di folder itu.
+
+### Langkah 3 — Buat lingkungan Python
+
+Masih di Command Prompt yang sama:
+
+```cmd
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+```
+
+Tunggu sampai selesai. Proses ini mengunduh pymysql, reportlab, openpyxl,
+dan pytest.
+
+### Langkah 4 — Nyalakan MySQL lalu impor database
+
+1. Buka **Laragon** → klik **Start All** → tunggu MySQL berwarna hijau.
+2. Di folder `C:\Orderan Sela\spk_hoaks`, klik dua kali
+   **`Impor Database.bat`**.
+3. Skrip itu membuat database `spk_hoaks`, seluruh tabel, dan mengisi data
+   awal (admin, 6 kriteria, 30 subkriteria, matriks perbandingan).
+4. Tunggu sampai muncul tulisan **SELESAI**.
+
+> Skrip ini **menolak berjalan** kalau database sudah berisi jawaban
+> kuesioner, supaya data asli tidak terhapus. Kalau ingin mulai dari nol,
+> hapus dulu database `spk_hoaks` lewat Laragon, lalu jalankan lagi.
+
+### Langkah 5 — Jalankan aplikasi
+
+Klik dua kali **`Jalankan Aplikasi.bat`**, lalu login:
+
+| Peran | Username | Password |
+|---|---|---|
+| Admin | `admin` | `admin123` |
+
+Selesai. Langkah 1–4 tidak perlu diulang lagi di kemudian hari — cukup
+bagian **A** di atas.
+
+### Kalau langkahnya ingin lebih singkat
+
+Semua perintah Langkah 2–3 bisa digabung jadi satu blok:
+
+```cmd
+cd C:\
+git clone https://github.com/vinzxls/spk-hoaks.git "Orderan Sela\spk_hoaks"
+cd "Orderan Sela\spk_hoaks"
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+```
+
+---
+
 ## C. Syarat Sistem (Sudah Disiapkan, untuk Referensi)
 
 | Komponen | Keterangan |
@@ -58,7 +136,8 @@ python main.py
 | Python | Versi 3.13 |
 | MySQL | Lewat Laragon (port 3306, user `root`, tanpa password) |
 | Database | Nama database: `spk_hoaks` |
-| Library Python | Sesuai `requirements.txt` (pymysql, reportlab, pytest) |
+| Library Python | Sesuai `requirements.txt` (pymysql, reportlab, openpyxl, pytest) |
+| Sumber kode | https://github.com/vinzxls/spk-hoaks |
 
 ---
 
@@ -93,7 +172,8 @@ username baru + password baru tadi.
   dan centang **"Add Python to PATH"** saat instalasi.
 
 ### 4. Pesan "Virtual environment .venv tidak ditemukan"
-Buat ulang lingkungan virtual:
+Folder `.venv` tidak ikut tersimpan di GitHub (ukurannya besar dan khusus
+perangkat). Buat ulang:
 
 ```cmd
 cd "C:\Orderan Sela\spk_hoaks"
@@ -101,12 +181,31 @@ python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 ```
 
-### 5. Aplikasi berjalan tapi data kosong
-Impor ulang data awal (aman dijalankan berulang):
+### 4b. Pesan "python is not recognized" padahal Python sudah dipasang
+Python belum masuk PATH. Cara tercepat: pasang ulang Python 3.13, pilih
+**Modify**, dan centang **"Add Python to environment variables"**. Atau
+pakai perintah `py` sebagai ganti `python`:
 
 ```cmd
-mysql -u root spk_hoaks < db/seed.sql
+py -m venv .venv
 ```
+
+### 5. Aplikasi berjalan tapi data kosong
+Jalankan **`Impor Database.bat`** (MySQL harus menyala). Atau lewat terminal:
+
+```cmd
+mysql -u root < db\schema.sql
+mysql -u root spk_hoaks < db\seed.sql
+```
+
+### 6. Database sudah berisi data lama dan ingin mulai dari nol
+1. Buka **Laragon** → **Database** (atau HeidiSQL).
+2. Hapus database `spk_hoaks`.
+3. Klik dua kali **`Impor Database.bat`** lagi.
+
+> Menghapus database ikut menghapus semua akun mahasiswa dan jawaban
+> kuesioner. Ekspor dulu rekapnya lewat menu **Kuesioner → Ekspor Excel**
+> kalau datanya masih dibutuhkan.
 
 ---
 
