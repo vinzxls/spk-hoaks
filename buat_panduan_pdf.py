@@ -296,6 +296,41 @@ def build() -> None:
     story.append(Paragraph("D. Jika Ada Masalah", ST_H1))
 
     story.append(Paragraph(
+        "0. Langkah pertama: jalankan &ldquo;Cek Database.bat&rdquo;", ST_H2))
+    story.append(Paragraph(
+        "Kalau aplikasi terbuka tetapi <b>tidak bisa login</b> dengan akun apa "
+        "pun, jangan menebak. Di folder proyek, klik dua kali "
+        "<b>Cek Database.bat</b>. Skrip itu hanya <b>membaca</b> (tidak "
+        "mengubah data) dan menampilkan konfigurasi koneksi, keadaan MySQL, "
+        "daftar tabel, jumlah baris tiap tabel, apakah akun admin ada dan "
+        "apakah password admin123 cocok, serta daftar akun mahasiswa.", ST_BODY))
+    story.append(Paragraph(
+        "Di bagian akhir muncul <b>KESIMPULAN</b> berisi penyebabnya:", ST_BODY))
+    story.append(table(
+        [
+            [Paragraph("<b>Pesan di kesimpulan</b>", ST_BODY),
+             Paragraph("<b>Perbaikan</b>", ST_BODY)],
+            [Paragraph("MySQL tidak bisa dihubungi (kode 2003)", ST_BODY),
+             Paragraph("Buka Laragon &rarr; Start All", ST_BODY)],
+            [Paragraph("user/password MySQL ditolak (kode 1045)", ST_BODY),
+             Paragraph("Sesuaikan DB_CONFIG di config.py", ST_BODY)],
+            [Paragraph("database belum ada (kode 1049)", ST_BODY),
+             Paragraph("Klik dua kali Impor Database.bat", ST_BODY)],
+            [Paragraph("tabel belum lengkap / tabel admin kosong", ST_BODY),
+             Paragraph("Klik dua kali Impor Database.bat", ST_BODY)],
+            [Paragraph("belum ada akun mahasiswa", ST_BODY),
+             Paragraph("Normal di laptop baru; buat lewat admin", ST_BODY)],
+        ],
+        widths=[9.4 * cm, 7.0 * cm],
+    ))
+    story.append(Paragraph(
+        "Catatan: <b>database tidak ikut tersimpan di GitHub</b>. Setelah "
+        "clone, database harus diimpor sekali lewat <b>Impor Database.bat</b>. "
+        "Kalau langkah itu terlewat, aplikasi tetap terbuka tetapi login selalu "
+        "gagal karena tabel <font face='Courier'>admin</font> masih kosong.",
+        ST_NOTE))
+
+    story.append(Paragraph(
         "1. Tidak bisa login &mdash; &ldquo;Username atau password salah&rdquo;",
         ST_H2))
     story.append(Paragraph(

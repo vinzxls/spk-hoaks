@@ -143,6 +143,36 @@ python -m venv .venv
 
 ## D. Kalau Ada Masalah
 
+### 0. Langkah pertama: jalankan "Cek Database.bat"
+
+Kalau aplikasi terbuka tapi **tidak bisa login** dengan akun apa pun, jangan
+menebak. Di folder proyek, klik dua kali **`Cek Database.bat`**.
+
+Skrip itu hanya **membaca** (tidak mengubah data) dan menampilkan:
+
+- konfigurasi koneksi yang sedang dipakai (`config.py`);
+- apakah MySQL bisa dihubungi;
+- daftar tabel yang ada dan yang belum dibuat;
+- jumlah baris tiap tabel;
+- apakah akun `admin` ada dan password `admin123` cocok;
+- daftar akun mahasiswa yang ada.
+
+Di bagian akhir muncul **KESIMPULAN** berisi penyebab yang ditemukan. Contoh
+pesan yang sering muncul di laptop baru:
+
+| Pesan di kesimpulan | Artinya | Perbaikan |
+|---|---|---|
+| `MySQL tidak bisa dihubungi (kode 2003)` | Laragon belum Start | Buka Laragon → Start All |
+| `user/password MySQL ditolak (kode 1045)` | `config.py` tidak cocok | Sesuaikan `DB_CONFIG` di `config.py` |
+| `database belum ada (kode 1049)` | Belum impor | Klik dua kali `Impor Database.bat` |
+| `tabel belum lengkap: ...` | Belum impor | Klik dua kali `Impor Database.bat` |
+| `tabel admin kosong` | Impor belum jalan | Klik dua kali `Impor Database.bat` |
+| `belum ada akun mahasiswa` | **Normal di laptop baru** | Buat akunnya lewat admin |
+
+> Catatan: **database tidak ikut tersimpan di GitHub**. Setelah clone, database
+> harus diimpor sekali lewat `Impor Database.bat` — kalau langkah ini terlewat,
+> aplikasi tetap terbuka tetapi login selalu gagal karena tabel `admin` kosong.
+
 ### 1. Tidak bisa login / "Username atau password salah"
 Password disimpan dalam bentuk **hash** (SHA256), bukan teks biasa.
 Untuk mereset password admin, buka terminal MySQL:
