@@ -1,0 +1,27 @@
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ── Virtual environment ───────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Hasil ekspor pengguna ─────────────────────────────────
+# File .xlsx/.pdf yang dihasilkan dari menu aplikasi tidak perlu
+# masuk repo; strukturnya dibuat otomatis saat runtime.
+exports/*
+!exports/.gitkeep
+
+# ── Berkas sementara ──────────────────────────────────────
+*.log
+*.tmp
+~$*
+Thumbs.db
+desktop.ini
+
+# ── IDE / editor ──────────────────────────────────────────
+.vscode/
+.idea/
